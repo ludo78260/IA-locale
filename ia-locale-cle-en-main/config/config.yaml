@@ -1,0 +1,91 @@
+# =============================================================================
+# IA Locale - Configuration principale V2 (clé en main)
+# =============================================================================
+
+ui:
+  host: "127.0.0.1"
+  port: 7860
+  title: "IA Locale - Assistant 100% Local"
+  theme: "futuristic"
+  analytics: false
+
+llm:
+  provider: "ollama"
+  host: "http://127.0.0.1:11434"
+  default_model: "llama3.2"
+  models:
+    - "llama3.2"
+    - "mistral"
+    - "phi3"
+    - "llava"
+    - "nous-hermes2"
+    - "openhermes"
+  temperature: 0.7
+  max_tokens: 2048
+
+stt:
+  provider: "faster-whisper"
+  model: "base"
+  language: "fr"
+  device: "cpu"
+  compute_type: "int8"
+
+tts:
+  provider: "piper"  # piper (léger) ou coqui (qualité)
+  piper:
+    model_dir: "models/piper"
+    voice: "fr_FR-siwis-medium"
+  coqui:
+    model: "tts_models/fr/mai/tacotron2-DDC"
+  speed: 1.0
+
+rag:
+  provider: "chromadb"
+  embedding_model: "sentence-transformers/all-MiniLM-L6-v2"
+  chunk_size: 1000
+  chunk_overlap: 200
+  persist_dir: "chroma_db"
+
+images:
+  provider: "diffusers"
+  model: "stabilityai/stable-diffusion-2-1-base"
+  device: "cpu"
+  steps: 20
+  guidance: 7.5
+
+3d:
+  export_formats: ["stl", "obj", "glb", "ply", "3mf"]
+  default_resolution: 64
+  smoothing: true
+
+audio:
+  sample_rate: 22050
+  effects_enabled: true
+  default_theme: "futuristic"
+
+system:
+  auto_clean: true
+  clean_interval_hours: 24
+  max_temp_files: 100
+  monitoring: true
+
+personalities:
+  default: "assistant"
+  dir: "config/personalities"
+
+# Models non censurés - onglet dédié
+uncensored:
+  enabled: true
+  models:
+    - "nous-hermes2"
+    - "openhermes"
+    - "dolphin-mistral"
+  modes:
+    - "normal"      # 🌙 Non censurée
+    - "dark"        # 🌑 Dark max
+
+paths:
+  models: "models"
+  outputs: "outputs"
+  sounds: "sounds"
+  chroma_db: "chroma_db"
